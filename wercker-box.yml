@@ -1,0 +1,33 @@
+name: review
+version: 1.0.0
+inherits : wercker/ubuntu12.04-webessentials@1.0.4
+type : main
+platform : ubuntu@12.04
+description : wercker box for Re:VIEW
+packages:
+ - ruby@1.9.3-p547
+ - ruby@2.0.0-p481
+ - ruby@2.1.2
+ - review
+ - texlive-lang-cjk
+keywords:
+  - review
+  - rvm
+script: |
+  sudo apt-get update -y
+  sudo apt-get install git zlib1g-dev libreadline-dev libqtwebkit-dev curl -y
+  sudo apt-get remove ruby1.9.1
+  curl -sSL https://get.rvm.io | bash -s stable
+  echo "bundler -v~>1.5.1" > $HOME/.rvm/gemsets/global.gems
+  source $HOME/.rvm/scripts/rvm
+  rvm install 2.1.2
+  rvm --default use 2.1.2
+  echo "gem: --no-rdoc --no-ri" >> $HOME/.gemrc
+  echo "RAILS_ENV=test" | sudo tee -a /etc/environment
+  echo "RACK_ENV=test" | sudo tee -a /etc/environment
+  sudo apt-get install -y zip unzip
+  sudo apt-get install -y software-properties-common
+  sudo apt-add-repository -y ppa:texlive-backports/ppa
+  sudo apt-get update -y
+  sudo apt-get install -y texlive-lang-cjk texlive-latex-recommended texlive-latex-extra texlive-fonts-recommended
+  gem install review
