@@ -25,7 +25,7 @@ script: |
   echo "gem: --no-rdoc --no-ri" >> $HOME/.gemrc
   echo "RAILS_ENV=test" | sudo tee -a /etc/environment
   echo "RACK_ENV=test" | sudo tee -a /etc/environment
-  sudo apt-get install -y zip unzip
+  sudo apt-get install -y zip unzip gnuplot
   sudo apt-get install -y software-properties-common
   sudo apt-add-repository -y ppa:texlive-backports/ppa
   sudo apt-get update -y
